@@ -65,4 +65,4 @@ async function getToken(cookie) {
   })
 }
 
-module.exports = { getToken }
+module.exports = { LaunchGame }
