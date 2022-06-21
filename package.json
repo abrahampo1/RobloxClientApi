@@ -1,0 +1,29 @@
+{
+  "name": "robloxclientapi",
+  "version": "1.0.0",
+  "description": "Roblox Client Launcher Using Launch Protocols",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abrahampo1/RobloxClientApi.git"
+  },
+  "keywords": [
+    "robloxapi",
+    "roblox"
+  ],
+  "author": "Abrahampo1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abrahampo1/RobloxClientApi/issues"
+  },
+  "homepage": "https://github.com/abrahampo1/RobloxClientApi#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "jquery": "^3.6.0",
+    "noblox.js": "^4.13.1",
+    "node-cmd": "^5.0.0"
+  }
+}
