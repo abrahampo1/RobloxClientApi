@@ -43,8 +43,7 @@ async function LaunchGame(cookie, placeID = '4670813246') {
       ticket +
       ' -j "https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&placeId=' +
       placeID +
-      '&gameId=&isPlayTogetherGame=false"',
-    (err, data, stderr) => console.log(err),
+      '&gameId=&isPlayTogetherGame=false"'
   )
 }
 
