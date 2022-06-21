@@ -31,7 +31,9 @@ async function AuthTicket(cookie, token) {
 }
 
 async function LaunchGame(cookie, placeID = '4670813246') {
+  console.log('USING COOKIE', cookie)
   let token = await getToken(cookie)
+  console.log('USING TOKEN', token)
   let ticket = await AuthTicket(cookie, token)
   let version = await GameVersion()
   //let RPath = `"C:/Program Files (x86)/Roblox/Versions/` + version
