@@ -78,6 +78,7 @@ async function RobloxRequest(endpoint, cookie, method = 'GET', data = {}, refere
     }
     let destination = endpoint
     if (method == 'POST') {
+      myInit.headers["Content-Type"] = "application/x-www-form-urlencoded"
       axios
         .post(destination, data, myInit)
         .then((r) => {
