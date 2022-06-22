@@ -64,7 +64,7 @@ async function getToken(cookie) {
   })
 }
 
-async function RobloxRequest(endpoint, cookie, method = 'GET', referer = "https://www.roblox.com/games/606849621/Jailbreak") {
+async function RobloxRequest(endpoint, cookie, method = 'GET', data = {}, referer = "https://www.roblox.com/games/606849621/Jailbreak") {
   return new Promise(async (resolve, reject) => {
     let token = await getToken(cookie);
     var myInit = {
@@ -79,7 +79,7 @@ async function RobloxRequest(endpoint, cookie, method = 'GET', referer = "https:
     let destination = endpoint
     if (method == 'POST') {
       axios
-        .post(destination, {}, myInit)
+        .post(destination, data, myInit)
         .then((r) => {
           resolve(r)
         })
