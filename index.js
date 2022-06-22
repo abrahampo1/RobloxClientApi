@@ -65,11 +65,12 @@ async function getToken(cookie) {
 }
 
 async function RobloxRequest(endpoint, cookie, method = 'GET', referer = "https://www.roblox.com/games/606849621/Jailbreak") {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
+    let token = await getToken(cookie);
     var myInit = {
       headers: {
         Cookie: '.ROBLOSECURITY=' + cookie + ';',
-        'X-CSRF-TOKEN': await getToken(cookie),
+        'X-CSRF-TOKEN': token,
         Referer: referer,
       },
       baseURL: referer,
