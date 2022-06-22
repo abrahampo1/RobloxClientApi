@@ -1,6 +1,6 @@
 const noblox = require('noblox.js')
 var $ = require('jquery')
-const {axios, FormData} = require('axios')
+const axios = require('axios')
 const { resolve } = require('path')
 const nodeCmd = require('node-cmd')
 var exec = require('child_process').execFile
