@@ -76,11 +76,15 @@ async function RobloxRequest(endpoint, cookie, method = 'GET', data = {}, refere
       baseURL: referer,
       cache: 'default',
     }
+    var bodyFormData = new FormData();
+    Object.entries(data).forEach(([key, value])=>{
+      bodyFormData.append(key, value)
+    })
     let destination = endpoint
     if (method == 'POST') {
       myInit.headers["Content-Type"] = "application/x-www-form-urlencoded"
       axios
-        .post(destination, data, myInit)
+        .post(destination, bodyFormData, myInit)
         .then((r) => {
           resolve(r)
         })
