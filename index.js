@@ -43,7 +43,7 @@ async function LaunchGame(cookie, placeID = '4670813246') {
       ticket +
       ' -j "https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&placeId=' +
       placeID +
-      '&gameId=&isPlayTogetherGame=false"'
+      '&gameId=&isPlayTogetherGame=false"',
   )
 }
 
@@ -71,27 +71,32 @@ async function RobloxRequest(endpoint, cookie, method = 'GET') {
         Cookie: '.ROBLOSECURITY=' + cookie + ';',
         Referer: 'https://www.roblox.com/games/606849621/Jailbreak',
       },
-
+      baseURL: 'https://www.roblox.com/games/606849621/Jailbreak',
       cache: 'default',
     }
     let destination = endpoint
-    if(method == 'POST'){
-      axios.post(destination, {}, myInit).then(r=>{
-        resolve(r)
-      }).catch((error) => {
-        resolve(error)
-      })
-    }else if(method == 'GET'){
-      axios.get(destination, {}, myInit).then(r=>{
-        resolve(r)
-      }).catch((error) => {
-        resolve(error)
-      })
-    }else{
-      resolve('INVALID METHOD "' + method + '"' )
+    if (method == 'POST') {
+      axios
+        .post(destination, {}, myInit)
+        .then((r) => {
+          resolve(r)
+        })
+        .catch((error) => {
+          resolve(error)
+        })
+    } else if (method == 'GET') {
+      axios
+        .get(destination, myInit)
+        .then((r) => {
+          resolve(r)
+        })
+        .catch((error) => {
+          resolve(error)
+        })
+    } else {
+      resolve('INVALID METHOD "' + method + '"')
     }
   })
 }
-
 
 module.exports = { LaunchGame, RobloxRequest }
