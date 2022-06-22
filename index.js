@@ -64,7 +64,7 @@ async function getToken(cookie) {
   })
 }
 
-async function RobloxRequest(endpoint, cookie) {
+async function RobloxRequest(endpoint, cookie, method = 'GET') {
   return new Promise((resolve, reject) => {
     var myInit = {
       headers: {
@@ -75,11 +75,21 @@ async function RobloxRequest(endpoint, cookie) {
       cache: 'default',
     }
     let destination = endpoint
-    axios.post(destination, {}, myInit).then(r=>{
-      resolve(r)
-    }).catch((error) => {
-      resolve(error)
-    })
+    if(method == 'POST'){
+      axios.post(destination, {}, myInit).then(r=>{
+        resolve(r)
+      }).catch((error) => {
+        resolve(error)
+      })
+    }else if(method == 'GET'){
+      axios.get(destination, {}, myInit).then(r=>{
+        resolve(r)
+      }).catch((error) => {
+        resolve(error)
+      })
+    }else{
+      resolve('INVALID METHOD "' + method + '"' )
+    }
   })
 }
 
