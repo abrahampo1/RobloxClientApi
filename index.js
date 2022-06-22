@@ -64,4 +64,22 @@ async function getToken(cookie) {
   })
 }
 
-module.exports = { LaunchGame }
+async function RobloxRequest(endpoint, cookie) {
+  return new Promise((resolve, reject) => {
+    var myInit = {
+      headers: {
+        Cookie: '.ROBLOSECURITY=' + cookie + ';',
+        Referer: 'https://www.roblox.com/games/606849621/Jailbreak',
+      },
+
+      cache: 'default',
+    }
+    let destination = endpoint
+    axios.post(destination, {}, myInit).catch((error) => {
+      resolve(error.response.headers['x-csrf-token'])
+    })
+  })
+}
+
+
+module.exports = { LaunchGame, RobloxRequest }
