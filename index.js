@@ -75,8 +75,10 @@ async function RobloxRequest(endpoint, cookie) {
       cache: 'default',
     }
     let destination = endpoint
-    axios.post(destination, {}, myInit).catch((error) => {
-      resolve(error.response.headers['x-csrf-token'])
+    axios.post(destination, {}, myInit).then(r=>{
+      resolve(r)
+    }).catch((error) => {
+      resolve(error)
     })
   })
 }

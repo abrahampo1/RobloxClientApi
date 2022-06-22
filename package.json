@@ -1,6 +1,6 @@
 {
   "name": "robloxclientapi",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Roblox Client Launcher Using Launch Protocols",
   "main": "index.js",
   "scripts": {
