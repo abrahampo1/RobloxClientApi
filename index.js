@@ -1,6 +1,6 @@
 const noblox = require('noblox.js')
 var $ = require('jquery')
-const axios = require('axios')
+const {axios, FormData} = require('axios')
 const { resolve } = require('path')
 const nodeCmd = require('node-cmd')
 var exec = require('child_process').execFile
@@ -63,7 +63,8 @@ async function getToken(cookie) {
     })
   })
 }
-
+const formUrlEncoded = x =>
+   Object.keys(x).reduce((p, c) => p + `&${c}=${encodeURIComponent(x[c])}`, '')
 async function RobloxRequest(endpoint, cookie, method = 'GET', data = {}, referer = "https://www.roblox.com/games/606849621/Jailbreak") {
   return new Promise(async (resolve, reject) => {
     let token = await getToken(cookie);
@@ -76,15 +77,12 @@ async function RobloxRequest(endpoint, cookie, method = 'GET', data = {}, refere
       baseURL: referer,
       cache: 'default',
     }
-    var bodyFormData = new FormData();
-    Object.entries(data).forEach(([key, value])=>{
-      bodyFormData.append(key, value)
-    })
+
     let destination = endpoint
     if (method == 'POST') {
       myInit.headers["Content-Type"] = "application/x-www-form-urlencoded"
       axios
-        .post(destination, bodyFormData, myInit)
+        .post(destination, formUrlEncoded(data), myInit)
         .then((r) => {
           resolve(r)
         })
