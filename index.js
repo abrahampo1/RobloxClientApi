@@ -30,21 +30,37 @@ async function AuthTicket(cookie, token) {
   ]
 }
 
-async function LaunchGame(cookie, placeID = '4670813246') {
+async function LaunchGame(
+  cookie,
+  placeID = '4670813246',
+  followPlayer = false,
+) {
   let token = await getToken(cookie)
   let ticket = await AuthTicket(cookie, token)
   let version = await GameVersion()
   //let RPath = `"C:/Program Files (x86)/Roblox/Versions/` + version
   let RPath = '"' + process.env.LOCALAPPDATA + '/Roblox/Versions/' + version
   RPath = RPath + '/RobloxPlayerBeta.exe"'
-  nodeCmd.run(
-    RPath +
-      ' --play -a https://auth.roblox.com/v1/authentication-ticket/redeem -t ' +
-      ticket +
-      ' -j "https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&placeId=' +
-      placeID +
-      '&gameId=&isPlayTogetherGame=false"',
-  )
+  if (!followPlayer) {
+    nodeCmd.run(
+      RPath +
+        ' --play -a https://auth.roblox.com/v1/authentication-ticket/redeem -t ' +
+        ticket +
+        ' -j "https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&placeId=' +
+        placeID +
+        '&gameId=&isPlayTogetherGame=false"',
+    )
+  } else {
+    let playerID = await noblox.getIdFromUsername(followPlayer)
+    nodeCmd.run(
+      RPath +
+        ' --play -a https://auth.roblox.com/v1/authentication-ticket/redeem -t ' +
+        ticket +
+        ' -j "https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestFollowUser&userId=' +
+        playerID +
+        '"',
+    )
+  }
 }
 
 async function getToken(cookie) {
@@ -63,11 +79,17 @@ async function getToken(cookie) {
     })
   })
 }
-const formUrlEncoded = x =>
-   Object.keys(x).reduce((p, c) => p + `&${c}=${encodeURIComponent(x[c])}`, '')
-async function RobloxRequest(endpoint, cookie, method = 'GET', data = {}, referer = "https://www.roblox.com/games/606849621/Jailbreak") {
+const formUrlEncoded = (x) =>
+  Object.keys(x).reduce((p, c) => p + `&${c}=${encodeURIComponent(x[c])}`, '')
+async function RobloxRequest(
+  endpoint,
+  cookie,
+  method = 'GET',
+  data = {},
+  referer = 'https://www.roblox.com/games/606849621/Jailbreak',
+) {
   return new Promise(async (resolve, reject) => {
-    let token = await getToken(cookie);
+    let token = await getToken(cookie)
     var myInit = {
       headers: {
         Cookie: '.ROBLOSECURITY=' + cookie + ';',
@@ -80,7 +102,7 @@ async function RobloxRequest(endpoint, cookie, method = 'GET', data = {}, refere
 
     let destination = endpoint
     if (method == 'POST') {
-      myInit.headers["Content-Type"] = "application/x-www-form-urlencoded"
+      myInit.headers['Content-Type'] = 'application/x-www-form-urlencoded'
       axios
         .post(destination, formUrlEncoded(data), myInit)
         .then((r) => {
