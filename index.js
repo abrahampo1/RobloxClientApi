@@ -42,7 +42,7 @@ async function LaunchGame(
   let version = await GameVersion()
   //let RPath = `"C:/Program Files (x86)/Roblox/Versions/` + version
   let RPath = '"' + process.env.LOCALAPPDATA + '/Roblox/Versions/' + version
-  if(!fs.existsSync(RPath)){
+  if(!fs.existsSync(process.env.LOCALAPPDATA + '/Roblox/Versions/' + version)){
     error('Roblox Needs an update!')
   }
 
