@@ -4,6 +4,7 @@ const axios = require('axios')
 const { resolve } = require('path')
 const nodeCmd = require('node-cmd')
 var exec = require('child_process').execFile
+const fs = require("fs");
 
 async function GameVersion() {
   return (
@@ -35,12 +36,20 @@ async function LaunchGame(
   placeID = '4670813246',
   followPlayer = false,
 ) {
-  let token = await getToken(cookie)
+  return new Promise((resolve, error)=>{
+    let token = await getToken(cookie)
   let ticket = await AuthTicket(cookie, token)
   let version = await GameVersion()
   //let RPath = `"C:/Program Files (x86)/Roblox/Versions/` + version
   let RPath = '"' + process.env.LOCALAPPDATA + '/Roblox/Versions/' + version
+  if(!fs.existsSync(RPath)){
+    error('Roblox Needs an update!')
+  }
+
   RPath = RPath + '/RobloxPlayerBeta.exe"'
+
+
+
   if (!followPlayer) {
     nodeCmd.run(
       RPath +
@@ -61,6 +70,9 @@ async function LaunchGame(
         '"',
     )
   }
+
+  resolve('Successfully launched')
+  })
 }
 
 async function getToken(cookie) {
