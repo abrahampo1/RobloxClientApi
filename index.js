@@ -36,7 +36,7 @@ async function LaunchGame(
   placeID = '4670813246',
   followPlayer = false,
 ) {
-  return new Promise((resolve, error)=>{
+  return new Promise(async (resolve, error)=>{
     let token = await getToken(cookie)
   let ticket = await AuthTicket(cookie, token)
   let version = await GameVersion()
