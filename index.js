@@ -5,6 +5,7 @@ const { resolve } = require('path')
 const nodeCmd = require('node-cmd')
 var exec = require('child_process').execFile
 const fs = require("fs");
+const dayjs = require('dayjs')
 
 async function GameVersion() {
   return (
@@ -47,7 +48,8 @@ async function LaunchGame(
   }
 
   RPath = RPath + '/RobloxPlayerBeta.exe"'
-
+  let time = dayjs().unix();
+  return `roblox-player:1+launchmode:play+gameinfo:${ticket}+launchtime:${time}+placelauncherurl:https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId=${time}&placeId=${placeID}&isPlayTogetherGame=false+browsertrackerid:${time}+robloxLocale:en_us+gameLocale:en_us+channel:`;
 
 
   if (!followPlayer) {
