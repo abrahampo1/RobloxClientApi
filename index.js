@@ -4,7 +4,7 @@ const axios = require('axios')
 const { resolve } = require('path')
 const nodeCmd = require('node-cmd')
 var exec = require('child_process').execFile
-const fs = require("fs");
+const fs = require('fs')
 const dayjs = require('dayjs')
 
 async function GameVersion() {
@@ -37,43 +37,31 @@ async function LaunchGame(
   placeID = '4670813246',
   followPlayer = false,
 ) {
-  return new Promise(async (resolve, error)=>{
+  return new Promise(async (resolve, error) => {
     let token = await getToken(cookie)
-  let ticket = await AuthTicket(cookie, token)
-  let version = await GameVersion()
-  //let RPath = `"C:/Program Files (x86)/Roblox/Versions/` + version
-  let RPath = '"' + process.env.LOCALAPPDATA + '/Roblox/Versions/' + version
-  if(!fs.existsSync(process.env.LOCALAPPDATA + '/Roblox/Versions/' + version)){
-    error('Roblox Needs an update!')
-  }
+    let ticket = await AuthTicket(cookie, token)
+    let version = await GameVersion()
+    //let RPath = `"C:/Program Files (x86)/Roblox/Versions/` + version
+    let RPath = '"' + process.env.LOCALAPPDATA + '/Roblox/Versions/' + version
+    if (
+      !fs.existsSync(process.env.LOCALAPPDATA + '/Roblox/Versions/' + version)
+    ) {
+      error('Roblox Needs an update!')
+    }
 
-  RPath = RPath + '/RobloxPlayerBeta.exe"'
-  let time = dayjs().unix();
-  resolve(`roblox-player:1+launchmode:play+gameinfo:${ticket}+launchtime:${time}+placelauncherurl:https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId=${time}&placeId=${placeID}&isPlayTogetherGame=false+browsertrackerid:${time}+robloxLocale:en_us+gameLocale:en_us+channel:`);
+    RPath = RPath + '/RobloxPlayerBeta.exe"'
+    let time = dayjs().unix()
 
-
-  if (!followPlayer) {
-    nodeCmd.run(
-      RPath +
-        ' --play -a https://auth.roblox.com/v1/authentication-ticket/redeem -t ' +
-        ticket +
-        ' -j "https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&placeId=' +
-        placeID +
-        '&gameId=&isPlayTogetherGame=false"',
-    )
-  } else {
-    let playerID = await noblox.getIdFromUsername(followPlayer)
-    nodeCmd.run(
-      RPath +
-        ' --play -a https://auth.roblox.com/v1/authentication-ticket/redeem -t ' +
-        ticket +
-        ' -j "https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestFollowUser&userId=' +
-        playerID +
-        '"',
-    )
-  }
-
-  resolve('Successfully launched')
+    if (!followPlayer) {
+      resolve(
+        `roblox-player:1+launchmode:play+gameinfo:${ticket}+launchtime:${time}+placelauncherurl:https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId=${time}&placeId=${placeID}&isPlayTogetherGame=false+browsertrackerid:${time}+robloxLocale:en_us+gameLocale:en_us+channel:`,
+      )
+    } else {
+      let playerID = await noblox.getIdFromUsername(followPlayer)
+      resolve(
+        `roblox-player:1+launchmode:play+gameinfo:${ticket}+launchtime:${time}+placelauncherurl:https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestFollowUser&browserTrackerId=${time}&userId=${playerID}+browsertrackerid:${time}+robloxLocale:en_us+gameLocale:en_us+channel:`,
+      )
+    }
   })
 }
 
