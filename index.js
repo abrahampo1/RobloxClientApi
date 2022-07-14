@@ -49,7 +49,7 @@ async function LaunchGame(
 
   RPath = RPath + '/RobloxPlayerBeta.exe"'
   let time = dayjs().unix();
-  return `roblox-player:1+launchmode:play+gameinfo:${ticket}+launchtime:${time}+placelauncherurl:https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId=${time}&placeId=${placeID}&isPlayTogetherGame=false+browsertrackerid:${time}+robloxLocale:en_us+gameLocale:en_us+channel:`;
+  resolve(`roblox-player:1+launchmode:play+gameinfo:${ticket}+launchtime:${time}+placelauncherurl:https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId=${time}&placeId=${placeID}&isPlayTogetherGame=false+browsertrackerid:${time}+robloxLocale:en_us+gameLocale:en_us+channel:`);
 
 
   if (!followPlayer) {
