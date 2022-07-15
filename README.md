@@ -31,7 +31,9 @@
 ```
 const { LaunchGame } = require('robloxclientapi')
 
-LaunchGame(COOKIE, GAMEPLACEID, PLAYERTOFOLLOW);
+var LaunchLink = LaunchGame(COOKIE, GAMEPLACEID, PLAYERTOFOLLOW);
+
+//When you open the link, roblox will be automatically opened
 
 
 ```
