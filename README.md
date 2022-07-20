@@ -4,7 +4,7 @@
 ### Install
 
 
-> npm install https://github.com/abrahampo1/RobloxClientApi
+> npm i robloxlauncherapi
 
 
 
