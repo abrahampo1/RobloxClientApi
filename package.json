@@ -1,6 +1,6 @@
 {
   "name": "robloxlauncherapi",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "Roblox Client Launcher Using Launch Protocols",
   "main": "index.js",
   "scripts": {
