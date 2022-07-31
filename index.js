@@ -41,7 +41,6 @@ async function LaunchGame(
     let token = await getToken(cookie)
     let ticket = await AuthTicket(cookie, token)
 
-    RPath = RPath + '/RobloxPlayerBeta.exe"'
     let time = dayjs().unix()
 
     if (!followPlayer) {
