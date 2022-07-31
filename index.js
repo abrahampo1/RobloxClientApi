@@ -40,14 +40,6 @@ async function LaunchGame(
   return new Promise(async (resolve, error) => {
     let token = await getToken(cookie)
     let ticket = await AuthTicket(cookie, token)
-    let version = await GameVersion()
-    //let RPath = `"C:/Program Files (x86)/Roblox/Versions/` + version
-    let RPath = '"' + process.env.LOCALAPPDATA + '/Roblox/Versions/' + version
-    if (
-      !fs.existsSync(process.env.LOCALAPPDATA + '/Roblox/Versions/' + version)
-    ) {
-      error('Roblox Needs an update!')
-    }
 
     RPath = RPath + '/RobloxPlayerBeta.exe"'
     let time = dayjs().unix()
