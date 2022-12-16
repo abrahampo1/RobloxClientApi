@@ -29,7 +29,7 @@
 ## Usage
 
 ```
-const { LaunchGame } = require('robloxclientapi')
+const { LaunchGame } = require('robloxlauncherapi')
 
 var LaunchLink = LaunchGame(COOKIE, GAMEPLACEID, PLAYERTOFOLLOW);
 
